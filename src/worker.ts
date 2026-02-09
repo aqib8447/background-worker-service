@@ -2,11 +2,10 @@ import 'dotenv/config';
 
 import { Worker,Job } from "bullmq";
 import { Redis } from 'ioredis';
-import { downloadFile } from '../utils/s3.js';
-import { extractTextFromFile } from '../utils/parser.js';
-import { generateKeywords } from '../utils/parser.js';
-import { prisma } from '../utils/prisma.js';
-import * as pdfjs from "pdfjs-dist/legacy/build/pdf.mjs";
+import { downloadFile } from './utils/s3.js';
+import { extractTextFromFile } from './utils/parser.js';
+import { generateKeywords } from './utils/parser.js';
+import { prisma } from './utils/prisma.js';
 
 const connection = new Redis({
   host: process.env.REDIS_HOST,

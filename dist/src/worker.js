@@ -1,60 +1,11 @@
-"use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g = Object.create((typeof Iterator === "function" ? Iterator : Object).prototype);
-    return g.next = verb(0), g["throw"] = verb(1), g["return"] = verb(2), typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (g && (g = 0, op[0] && (_ = 0)), _) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-require("dotenv/config");
-var bullmq_1 = require("bullmq");
-var ioredis_1 = require("ioredis");
-var s3_js_1 = require("../utils/s3.js");
-var parser_js_1 = require("../utils/parser.js");
-var parser_js_2 = require("../utils/parser.js");
-var prisma_js_1 = require("../utils/prisma.js");
-var connection = new ioredis_1.Redis({
+import 'dotenv/config';
+import { Worker } from "bullmq";
+import { Redis } from 'ioredis';
+import { downloadFile } from './utils/s3.js';
+import { extractTextFromFile } from './utils/parser.js';
+import { generateKeywords } from './utils/parser.js';
+import { prisma } from './utils/prisma.js';
+const connection = new Redis({
     host: process.env.REDIS_HOST,
     port: 20561,
     username: 'default',
@@ -62,99 +13,75 @@ var connection = new ioredis_1.Redis({
     tls: {},
     maxRetriesPerRequest: null
 });
-connection.on('connect', function () { return console.log('Connected to Aiven Valkey!'); });
-connection.on('error', function (err) { return console.error('Redis error:', err); });
+connection.on('connect', () => console.log('Connected to Aiven Valkey!'));
+connection.on('error', (err) => console.error('Redis error:', err));
 console.log("worker has started");
 // console.log(process.env.AWS_S3_BUCKET_NAME,process.env.AWS_ACCESS_KEY_ID,process.env.AWS_SECRET_ACCESS_KEY);
-var worker = new bullmq_1.Worker('process_document', function (job) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, documentId, workspaceId, filePath, fileName, userId, fileBuffer, sections, sectionWithKeywords, _i, sectionWithKeywords_1, sec, err_1;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
-            case 0:
-                console.log("worker reached");
-                _a = job.data, documentId = _a.documentId, workspaceId = _a.workspaceId, filePath = _a.filePath, fileName = _a.fileName, userId = _a.userId;
-                console.log(documentId, "id rech");
-                console.log("task has occured");
-                if (!documentId || !workspaceId || !filePath) {
-                    throw new Error("Missing job data");
+const worker = new Worker('process_document', async (job) => {
+    console.log("worker reached");
+    const { documentId, workspaceId, filePath, fileName, userId } = job.data;
+    console.log(documentId, "id rech");
+    console.log("task has occured");
+    if (!documentId || !workspaceId || !filePath) {
+        throw new Error("Missing job data");
+    }
+    try {
+        const fileBuffer = await downloadFile(filePath);
+        const sections = await extractTextFromFile(fileBuffer, fileName);
+        // console.log(sections);
+        const sectionWithKeywords = sections.map((section) => ({
+            ...section,
+            keywords: generateKeywords(section.content)
+        }));
+        for (const sec of sectionWithKeywords) {
+            await prisma.section.create({
+                data: {
+                    documentId: documentId,
+                    title: sec.title,
+                    content: sec.content,
+                    keywords: sec.keywords.join(",")
                 }
-                _b.label = 1;
-            case 1:
-                _b.trys.push([1, 10, , 12]);
-                return [4 /*yield*/, (0, s3_js_1.downloadFile)(filePath)];
-            case 2:
-                fileBuffer = _b.sent();
-                return [4 /*yield*/, (0, parser_js_1.extractTextFromFile)(fileBuffer, fileName)];
-            case 3:
-                sections = _b.sent();
-                sectionWithKeywords = sections.map(function (section) { return (__assign(__assign({}, section), { keywords: (0, parser_js_2.generateKeywords)(section.content) })); });
-                _i = 0, sectionWithKeywords_1 = sectionWithKeywords;
-                _b.label = 4;
-            case 4:
-                if (!(_i < sectionWithKeywords_1.length)) return [3 /*break*/, 7];
-                sec = sectionWithKeywords_1[_i];
-                return [4 /*yield*/, prisma_js_1.prisma.section.create({
-                        data: {
-                            documentId: documentId,
-                            title: sec.title,
-                            content: sec.content,
-                            keywords: sec.keywords.join(",")
-                        }
-                    })];
-            case 5:
-                _b.sent();
-                _b.label = 6;
-            case 6:
-                _i++;
-                return [3 /*break*/, 4];
-            case 7: return [4 /*yield*/, prisma_js_1.prisma.document.update({
-                    where: {
-                        id: documentId
-                    },
-                    data: {
-                        status: "completed"
-                    }
-                })];
-            case 8:
-                _b.sent();
-                return [4 /*yield*/, prisma_js_1.prisma.notification.create({
-                        data: {
-                            userId: userId,
-                            type: "ai_processing",
-                            reach: "personal",
-                            title: "AI processing completed .",
-                            workspaceId: workspaceId
-                        }
-                    })];
-            case 9:
-                _b.sent();
-                console.log("document processed successfully");
-                return [3 /*break*/, 12];
-            case 10:
-                err_1 = _b.sent();
-                console.error("error while processing document", err_1);
-                return [4 /*yield*/, prisma_js_1.prisma.document.update({
-                        where: {
-                            id: documentId
-                        },
-                        data: {
-                            status: "failed"
-                        }
-                    })];
-            case 11:
-                _b.sent();
-                throw err_1;
-            case 12: return [2 /*return*/];
+            });
         }
-    });
-}); }, {
-    connection: connection
+        await prisma.document.update({
+            where: {
+                id: documentId
+            },
+            data: {
+                status: "completed"
+            }
+        });
+        await prisma.notification.create({
+            data: {
+                userId,
+                type: "ai_processing",
+                reach: "personal",
+                title: "AI processing completed .",
+                workspaceId
+            }
+        });
+        console.log("document processed successfully");
+    }
+    catch (err) {
+        console.error("error while processing document", err);
+        await prisma.document.update({
+            where: {
+                id: documentId
+            },
+            data: {
+                status: "failed"
+            }
+        });
+        throw err;
+    }
+}, {
+    connection
 });
-worker.on("completed", function (job) {
-    console.log(" Job ".concat(job.id, " completed"));
+worker.on("completed", (job) => {
+    console.log(` Job ${job.id} completed`);
 });
-worker.on("failed", function (job, err) {
+worker.on("failed", (job, err) => {
     if (!job)
         return;
-    console.error("job ".concat(job.id, " failed"), err);
+    console.error(`job ${job.id} failed`, err);
 });
