@@ -8,14 +8,17 @@ import { generateKeywords } from '../utils/parser.js';
 import { prisma } from '../utils/prisma.js';
 import * as pdfjs from "pdfjs-dist/legacy/build/pdf.mjs";
 
-// (pdfjs as any).GlobalWorkerOptions.workerSrc = false;
-process.env.PDFJS_DISABLE_WORKER = "true";
-
 const connection = new Redis({
-    host:'localhost',
-    port:6379,
-    maxRetriesPerRequest: null
-})
+  host: process.env.REDIS_HOST,
+  port: 20561,
+  username: 'default',
+  password: process.env.REDIS_PASSWORD,
+  tls: {}, 
+  maxRetriesPerRequest: null
+});
+
+connection.on('connect', () => console.log('Connected to Aiven Valkey!'));
+connection.on('error', (err) => console.error('Redis error:', err));
 console.log("worker has started");
 // console.log(process.env.AWS_S3_BUCKET_NAME,process.env.AWS_ACCESS_KEY_ID,process.env.AWS_SECRET_ACCESS_KEY);
 const worker = new Worker('process_document', async (job: Job) => {
