@@ -1,0 +1,119 @@
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+
+model workspace{
+  id String @id @default(uuid())
+  name String
+  role String @default("admin")
+  userId String
+  slug String ?
+  documents document[] 
+  chats chat[]
+  projects project[]
+  members member[]
+  notifications notification[]
+  user user @relation(fields: [userId], references: [id]) 
+}
+
+model document{`
+id String @id @default(uuid())
+title String
+workspaceId String
+userId String
+fileUrl String
+fileName String
+status String @default("processing")
+createdAt DateTime @default(now())
+projectId String
+tags String[] @default([])
+sections  section[]
+chats chat[]
+notification notification[]
+project project @relation(fields: [projectId],references: [id])
+workspace workspace @relation(fields: [workspaceId], references: [id])
+user user @relation(fields: [userId], references: [id])
+}
+
+model section{
+  id  String @id @default(uuid())
+  documentId String
+  time String?
+  title String
+  content String
+  keywords String
+  document document @relation(fields: [documentId], references: [id])
+}
+
+model chat{
+  id String @id @default(uuid())
+  message String
+  userId String
+  createdAt DateTime @default(now())
+  documentId String
+  workspaceId String
+  workspace workspace @relation(fields: [workspaceId],references: [id])
+  document document @relation(fields: [documentId],references: [id])
+}
+
+model project{
+  id String @id @default(uuid())
+  name String
+  workspaceId String
+  userId String
+  documents document[]
+  user user @relation(fields: [userId],references: [id])
+  workspace workspace @relation(fields: [workspaceId],references: [id])
+}
+
+
+
+
+model member{
+id String @id @default(uuid())
+userId String
+workspaceId String
+email String
+name String
+role String
+workspace workspace @relation(fields: [workspaceId],references: [id])
+user user @relation(fields: [userId],references: [id])
+notifications notification[]
+}
+
+model user{
+  id String @id @default(uuid())
+  email String @unique
+  name String
+  password String?
+  workspaces workspace[]
+  projects project[]
+  documents document[]
+  workspacesmember member[]
+  notifications notification[]
+}
+
+model notification{
+  id String @id @default(uuid())
+  userId String
+  type String
+  reach String
+  title String
+  memName String?
+  documentId  String? 
+  createdAt DateTime @default(now())
+  workspaceId String 
+  memberId String?
+  member member? @relation(fields: [memberId],references: [id])
+  document document? @relation(fields: [documentId],references: [id])
+  workspace workspace @relation(fields: [workspaceId],references: [id])
+  user user @relation(fields: [userId],references: [id])
+}

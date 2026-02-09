@@ -1,0 +1,60 @@
+// {
+//   // Visit https://aka.ms/tsconfig to read more about this file
+//   "compilerOptions": {
+//     // File Layout
+//     // "rootDir": "./src",
+//     "outDir": "./dist",
+//   "target": "es2020",
+//     "module": "node18",
+//     "moduleResolution": "node16",
+//     "strict": true,
+//     "skipLibCheck": true,
+//      "esModuleInterop": true,
+//     "allowSyntheticDefaultImports": true,
+//     // For nodejs:
+//     // "lib": ["esnext"],
+//     "types": ["node"],
+//     // and npm install -D @types/node
+
+//     // Other Outputs
+//     "sourceMap": true,
+//     "declaration": true,
+//     "declarationMap": true,
+
+//     // Stricter Typechecking Options
+//     "noUncheckedIndexedAccess": true,
+//     "exactOptionalPropertyTypes": true,
+
+//     // Style Options
+//     // "noImplicitReturns": true,
+//     // "noImplicitOverride": true,
+//     // "noUnusedLocals": true,
+//     // "noUnusedParameters": true,
+//     // "noFallthroughCasesInSwitch": true,
+//     // "noPropertyAccessFromIndexSignature": true,
+
+//     // Recommended Options
+  
+//     "jsx": "react-jsx",
+//     "verbatimModuleSyntax": true,
+//     "isolatedModules": true,
+//     "noUncheckedSideEffectImports": true,
+//     "moduleDetection": "force",
+//   },
+//    "include": ["./**/*.ts"],
+//   "exclude": ["node_modules", "dist"]
+// }
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "node18",
+    "moduleResolution": "node16",
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "outDir": "dist"
+  },
+  "include": ["./**/*.ts"],
+  "exclude": ["node_modules", "dist"]
+}
