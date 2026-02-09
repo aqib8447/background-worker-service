@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npx tsx src/worker.ts"
+    "dev": "tsc src/worker.ts --outDir dist && node dist/worker.js",
+    "build" :"tsc src/worker.ts --outDir dist",
+    "start": "node dist/worker.js"
   },
   "keywords": [],
   "author": "",
