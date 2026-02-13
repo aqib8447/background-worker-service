@@ -187,6 +187,7 @@ export type userWhereInput = {
   documents?: Prisma.DocumentListRelationFilter
   workspacesmember?: Prisma.MemberListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
+  chats?: Prisma.ChatListRelationFilter
 }
 
 export type userOrderByWithRelationInput = {
@@ -200,6 +201,7 @@ export type userOrderByWithRelationInput = {
   documents?: Prisma.documentOrderByRelationAggregateInput
   workspacesmember?: Prisma.memberOrderByRelationAggregateInput
   notifications?: Prisma.notificationOrderByRelationAggregateInput
+  chats?: Prisma.chatOrderByRelationAggregateInput
 }
 
 export type userWhereUniqueInput = Prisma.AtLeast<{
@@ -216,6 +218,7 @@ export type userWhereUniqueInput = Prisma.AtLeast<{
   documents?: Prisma.DocumentListRelationFilter
   workspacesmember?: Prisma.MemberListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
+  chats?: Prisma.ChatListRelationFilter
 }, "id" | "email">
 
 export type userOrderByWithAggregationInput = {
@@ -251,6 +254,7 @@ export type userCreateInput = {
   documents?: Prisma.documentCreateNestedManyWithoutUserInput
   workspacesmember?: Prisma.memberCreateNestedManyWithoutUserInput
   notifications?: Prisma.notificationCreateNestedManyWithoutUserInput
+  chats?: Prisma.chatCreateNestedManyWithoutUserInput
 }
 
 export type userUncheckedCreateInput = {
@@ -264,6 +268,7 @@ export type userUncheckedCreateInput = {
   documents?: Prisma.documentUncheckedCreateNestedManyWithoutUserInput
   workspacesmember?: Prisma.memberUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.notificationUncheckedCreateNestedManyWithoutUserInput
+  chats?: Prisma.chatUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type userUpdateInput = {
@@ -277,6 +282,7 @@ export type userUpdateInput = {
   documents?: Prisma.documentUpdateManyWithoutUserNestedInput
   workspacesmember?: Prisma.memberUpdateManyWithoutUserNestedInput
   notifications?: Prisma.notificationUpdateManyWithoutUserNestedInput
+  chats?: Prisma.chatUpdateManyWithoutUserNestedInput
 }
 
 export type userUncheckedUpdateInput = {
@@ -290,6 +296,7 @@ export type userUncheckedUpdateInput = {
   documents?: Prisma.documentUncheckedUpdateManyWithoutUserNestedInput
   workspacesmember?: Prisma.memberUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.notificationUncheckedUpdateManyWithoutUserNestedInput
+  chats?: Prisma.chatUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type userCreateManyInput = {
@@ -373,6 +380,20 @@ export type userUpdateOneRequiredWithoutDocumentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.userUpdateToOneWithWhereWithoutDocumentsInput, Prisma.userUpdateWithoutDocumentsInput>, Prisma.userUncheckedUpdateWithoutDocumentsInput>
 }
 
+export type userCreateNestedOneWithoutChatsInput = {
+  create?: Prisma.XOR<Prisma.userCreateWithoutChatsInput, Prisma.userUncheckedCreateWithoutChatsInput>
+  connectOrCreate?: Prisma.userCreateOrConnectWithoutChatsInput
+  connect?: Prisma.userWhereUniqueInput
+}
+
+export type userUpdateOneRequiredWithoutChatsNestedInput = {
+  create?: Prisma.XOR<Prisma.userCreateWithoutChatsInput, Prisma.userUncheckedCreateWithoutChatsInput>
+  connectOrCreate?: Prisma.userCreateOrConnectWithoutChatsInput
+  upsert?: Prisma.userUpsertWithoutChatsInput
+  connect?: Prisma.userWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.userUpdateToOneWithWhereWithoutChatsInput, Prisma.userUpdateWithoutChatsInput>, Prisma.userUncheckedUpdateWithoutChatsInput>
+}
+
 export type userCreateNestedOneWithoutProjectsInput = {
   create?: Prisma.XOR<Prisma.userCreateWithoutProjectsInput, Prisma.userUncheckedCreateWithoutProjectsInput>
   connectOrCreate?: Prisma.userCreateOrConnectWithoutProjectsInput
@@ -425,6 +446,7 @@ export type userCreateWithoutWorkspacesInput = {
   documents?: Prisma.documentCreateNestedManyWithoutUserInput
   workspacesmember?: Prisma.memberCreateNestedManyWithoutUserInput
   notifications?: Prisma.notificationCreateNestedManyWithoutUserInput
+  chats?: Prisma.chatCreateNestedManyWithoutUserInput
 }
 
 export type userUncheckedCreateWithoutWorkspacesInput = {
@@ -437,6 +459,7 @@ export type userUncheckedCreateWithoutWorkspacesInput = {
   documents?: Prisma.documentUncheckedCreateNestedManyWithoutUserInput
   workspacesmember?: Prisma.memberUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.notificationUncheckedCreateNestedManyWithoutUserInput
+  chats?: Prisma.chatUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type userCreateOrConnectWithoutWorkspacesInput = {
@@ -465,6 +488,7 @@ export type userUpdateWithoutWorkspacesInput = {
   documents?: Prisma.documentUpdateManyWithoutUserNestedInput
   workspacesmember?: Prisma.memberUpdateManyWithoutUserNestedInput
   notifications?: Prisma.notificationUpdateManyWithoutUserNestedInput
+  chats?: Prisma.chatUpdateManyWithoutUserNestedInput
 }
 
 export type userUncheckedUpdateWithoutWorkspacesInput = {
@@ -477,6 +501,7 @@ export type userUncheckedUpdateWithoutWorkspacesInput = {
   documents?: Prisma.documentUncheckedUpdateManyWithoutUserNestedInput
   workspacesmember?: Prisma.memberUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.notificationUncheckedUpdateManyWithoutUserNestedInput
+  chats?: Prisma.chatUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type userCreateWithoutDocumentsInput = {
@@ -489,6 +514,7 @@ export type userCreateWithoutDocumentsInput = {
   projects?: Prisma.projectCreateNestedManyWithoutUserInput
   workspacesmember?: Prisma.memberCreateNestedManyWithoutUserInput
   notifications?: Prisma.notificationCreateNestedManyWithoutUserInput
+  chats?: Prisma.chatCreateNestedManyWithoutUserInput
 }
 
 export type userUncheckedCreateWithoutDocumentsInput = {
@@ -501,6 +527,7 @@ export type userUncheckedCreateWithoutDocumentsInput = {
   projects?: Prisma.projectUncheckedCreateNestedManyWithoutUserInput
   workspacesmember?: Prisma.memberUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.notificationUncheckedCreateNestedManyWithoutUserInput
+  chats?: Prisma.chatUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type userCreateOrConnectWithoutDocumentsInput = {
@@ -529,6 +556,7 @@ export type userUpdateWithoutDocumentsInput = {
   projects?: Prisma.projectUpdateManyWithoutUserNestedInput
   workspacesmember?: Prisma.memberUpdateManyWithoutUserNestedInput
   notifications?: Prisma.notificationUpdateManyWithoutUserNestedInput
+  chats?: Prisma.chatUpdateManyWithoutUserNestedInput
 }
 
 export type userUncheckedUpdateWithoutDocumentsInput = {
@@ -539,6 +567,75 @@ export type userUncheckedUpdateWithoutDocumentsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaces?: Prisma.workspaceUncheckedUpdateManyWithoutUserNestedInput
   projects?: Prisma.projectUncheckedUpdateManyWithoutUserNestedInput
+  workspacesmember?: Prisma.memberUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.notificationUncheckedUpdateManyWithoutUserNestedInput
+  chats?: Prisma.chatUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type userCreateWithoutChatsInput = {
+  id?: string
+  email: string
+  name: string
+  password?: string | null
+  image?: string | null
+  workspaces?: Prisma.workspaceCreateNestedManyWithoutUserInput
+  projects?: Prisma.projectCreateNestedManyWithoutUserInput
+  documents?: Prisma.documentCreateNestedManyWithoutUserInput
+  workspacesmember?: Prisma.memberCreateNestedManyWithoutUserInput
+  notifications?: Prisma.notificationCreateNestedManyWithoutUserInput
+}
+
+export type userUncheckedCreateWithoutChatsInput = {
+  id?: string
+  email: string
+  name: string
+  password?: string | null
+  image?: string | null
+  workspaces?: Prisma.workspaceUncheckedCreateNestedManyWithoutUserInput
+  projects?: Prisma.projectUncheckedCreateNestedManyWithoutUserInput
+  documents?: Prisma.documentUncheckedCreateNestedManyWithoutUserInput
+  workspacesmember?: Prisma.memberUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.notificationUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type userCreateOrConnectWithoutChatsInput = {
+  where: Prisma.userWhereUniqueInput
+  create: Prisma.XOR<Prisma.userCreateWithoutChatsInput, Prisma.userUncheckedCreateWithoutChatsInput>
+}
+
+export type userUpsertWithoutChatsInput = {
+  update: Prisma.XOR<Prisma.userUpdateWithoutChatsInput, Prisma.userUncheckedUpdateWithoutChatsInput>
+  create: Prisma.XOR<Prisma.userCreateWithoutChatsInput, Prisma.userUncheckedCreateWithoutChatsInput>
+  where?: Prisma.userWhereInput
+}
+
+export type userUpdateToOneWithWhereWithoutChatsInput = {
+  where?: Prisma.userWhereInput
+  data: Prisma.XOR<Prisma.userUpdateWithoutChatsInput, Prisma.userUncheckedUpdateWithoutChatsInput>
+}
+
+export type userUpdateWithoutChatsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workspaces?: Prisma.workspaceUpdateManyWithoutUserNestedInput
+  projects?: Prisma.projectUpdateManyWithoutUserNestedInput
+  documents?: Prisma.documentUpdateManyWithoutUserNestedInput
+  workspacesmember?: Prisma.memberUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.notificationUpdateManyWithoutUserNestedInput
+}
+
+export type userUncheckedUpdateWithoutChatsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workspaces?: Prisma.workspaceUncheckedUpdateManyWithoutUserNestedInput
+  projects?: Prisma.projectUncheckedUpdateManyWithoutUserNestedInput
+  documents?: Prisma.documentUncheckedUpdateManyWithoutUserNestedInput
   workspacesmember?: Prisma.memberUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.notificationUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -553,6 +650,7 @@ export type userCreateWithoutProjectsInput = {
   documents?: Prisma.documentCreateNestedManyWithoutUserInput
   workspacesmember?: Prisma.memberCreateNestedManyWithoutUserInput
   notifications?: Prisma.notificationCreateNestedManyWithoutUserInput
+  chats?: Prisma.chatCreateNestedManyWithoutUserInput
 }
 
 export type userUncheckedCreateWithoutProjectsInput = {
@@ -565,6 +663,7 @@ export type userUncheckedCreateWithoutProjectsInput = {
   documents?: Prisma.documentUncheckedCreateNestedManyWithoutUserInput
   workspacesmember?: Prisma.memberUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.notificationUncheckedCreateNestedManyWithoutUserInput
+  chats?: Prisma.chatUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type userCreateOrConnectWithoutProjectsInput = {
@@ -593,6 +692,7 @@ export type userUpdateWithoutProjectsInput = {
   documents?: Prisma.documentUpdateManyWithoutUserNestedInput
   workspacesmember?: Prisma.memberUpdateManyWithoutUserNestedInput
   notifications?: Prisma.notificationUpdateManyWithoutUserNestedInput
+  chats?: Prisma.chatUpdateManyWithoutUserNestedInput
 }
 
 export type userUncheckedUpdateWithoutProjectsInput = {
@@ -605,6 +705,7 @@ export type userUncheckedUpdateWithoutProjectsInput = {
   documents?: Prisma.documentUncheckedUpdateManyWithoutUserNestedInput
   workspacesmember?: Prisma.memberUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.notificationUncheckedUpdateManyWithoutUserNestedInput
+  chats?: Prisma.chatUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type userCreateWithoutWorkspacesmemberInput = {
@@ -617,6 +718,7 @@ export type userCreateWithoutWorkspacesmemberInput = {
   projects?: Prisma.projectCreateNestedManyWithoutUserInput
   documents?: Prisma.documentCreateNestedManyWithoutUserInput
   notifications?: Prisma.notificationCreateNestedManyWithoutUserInput
+  chats?: Prisma.chatCreateNestedManyWithoutUserInput
 }
 
 export type userUncheckedCreateWithoutWorkspacesmemberInput = {
@@ -629,6 +731,7 @@ export type userUncheckedCreateWithoutWorkspacesmemberInput = {
   projects?: Prisma.projectUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.documentUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.notificationUncheckedCreateNestedManyWithoutUserInput
+  chats?: Prisma.chatUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type userCreateOrConnectWithoutWorkspacesmemberInput = {
@@ -657,6 +760,7 @@ export type userUpdateWithoutWorkspacesmemberInput = {
   projects?: Prisma.projectUpdateManyWithoutUserNestedInput
   documents?: Prisma.documentUpdateManyWithoutUserNestedInput
   notifications?: Prisma.notificationUpdateManyWithoutUserNestedInput
+  chats?: Prisma.chatUpdateManyWithoutUserNestedInput
 }
 
 export type userUncheckedUpdateWithoutWorkspacesmemberInput = {
@@ -669,6 +773,7 @@ export type userUncheckedUpdateWithoutWorkspacesmemberInput = {
   projects?: Prisma.projectUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.documentUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.notificationUncheckedUpdateManyWithoutUserNestedInput
+  chats?: Prisma.chatUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type userCreateWithoutNotificationsInput = {
@@ -681,6 +786,7 @@ export type userCreateWithoutNotificationsInput = {
   projects?: Prisma.projectCreateNestedManyWithoutUserInput
   documents?: Prisma.documentCreateNestedManyWithoutUserInput
   workspacesmember?: Prisma.memberCreateNestedManyWithoutUserInput
+  chats?: Prisma.chatCreateNestedManyWithoutUserInput
 }
 
 export type userUncheckedCreateWithoutNotificationsInput = {
@@ -693,6 +799,7 @@ export type userUncheckedCreateWithoutNotificationsInput = {
   projects?: Prisma.projectUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.documentUncheckedCreateNestedManyWithoutUserInput
   workspacesmember?: Prisma.memberUncheckedCreateNestedManyWithoutUserInput
+  chats?: Prisma.chatUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type userCreateOrConnectWithoutNotificationsInput = {
@@ -721,6 +828,7 @@ export type userUpdateWithoutNotificationsInput = {
   projects?: Prisma.projectUpdateManyWithoutUserNestedInput
   documents?: Prisma.documentUpdateManyWithoutUserNestedInput
   workspacesmember?: Prisma.memberUpdateManyWithoutUserNestedInput
+  chats?: Prisma.chatUpdateManyWithoutUserNestedInput
 }
 
 export type userUncheckedUpdateWithoutNotificationsInput = {
@@ -733,6 +841,7 @@ export type userUncheckedUpdateWithoutNotificationsInput = {
   projects?: Prisma.projectUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.documentUncheckedUpdateManyWithoutUserNestedInput
   workspacesmember?: Prisma.memberUncheckedUpdateManyWithoutUserNestedInput
+  chats?: Prisma.chatUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -746,6 +855,7 @@ export type UserCountOutputType = {
   documents: number
   workspacesmember: number
   notifications: number
+  chats: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -754,6 +864,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   documents?: boolean | UserCountOutputTypeCountDocumentsArgs
   workspacesmember?: boolean | UserCountOutputTypeCountWorkspacesmemberArgs
   notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
+  chats?: boolean | UserCountOutputTypeCountChatsArgs
 }
 
 /**
@@ -801,6 +912,13 @@ export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends runtime.Ty
   where?: Prisma.notificationWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountChatsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.chatWhereInput
+}
+
 
 export type userSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -813,6 +931,7 @@ export type userSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   documents?: boolean | Prisma.user$documentsArgs<ExtArgs>
   workspacesmember?: boolean | Prisma.user$workspacesmemberArgs<ExtArgs>
   notifications?: boolean | Prisma.user$notificationsArgs<ExtArgs>
+  chats?: boolean | Prisma.user$chatsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -847,6 +966,7 @@ export type userInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   documents?: boolean | Prisma.user$documentsArgs<ExtArgs>
   workspacesmember?: boolean | Prisma.user$workspacesmemberArgs<ExtArgs>
   notifications?: boolean | Prisma.user$notificationsArgs<ExtArgs>
+  chats?: boolean | Prisma.user$chatsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type userIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -860,6 +980,7 @@ export type $userPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     documents: Prisma.$documentPayload<ExtArgs>[]
     workspacesmember: Prisma.$memberPayload<ExtArgs>[]
     notifications: Prisma.$notificationPayload<ExtArgs>[]
+    chats: Prisma.$chatPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1266,6 +1387,7 @@ export interface Prisma__userClient<T, Null = never, ExtArgs extends runtime.Typ
   documents<T extends Prisma.user$documentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.user$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$documentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   workspacesmember<T extends Prisma.user$workspacesmemberArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.user$workspacesmemberArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$memberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notifications<T extends Prisma.user$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.user$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$notificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  chats<T extends Prisma.user$chatsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.user$chatsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$chatPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1805,6 +1927,30 @@ export type user$notificationsArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.NotificationScalarFieldEnum | Prisma.NotificationScalarFieldEnum[]
+}
+
+/**
+ * user.chats
+ */
+export type user$chatsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the chat
+   */
+  select?: Prisma.chatSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the chat
+   */
+  omit?: Prisma.chatOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.chatInclude<ExtArgs> | null
+  where?: Prisma.chatWhereInput
+  orderBy?: Prisma.chatOrderByWithRelationInput | Prisma.chatOrderByWithRelationInput[]
+  cursor?: Prisma.chatWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ChatScalarFieldEnum | Prisma.ChatScalarFieldEnum[]
 }
 
 /**
